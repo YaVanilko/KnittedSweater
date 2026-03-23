@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор петель в'язаного светра</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🧶 Калькулятор светра</h1>
+            <h2>Введи параметри і натисні Розрахувати</h2>
+            <p class="subtitle">Розрахунок петель і рядків для в'язання</p>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="sweater-section">
+                <svg class="sweater-svg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Гірловина -->
+                    <ellipse cx="100" cy="30" rx="25" ry="20" fill="#D4A574" stroke="#8B6F47" stroke-width="2"/>
+
+                    <!-- Рукави -->
+                    <rect x="30" y="50" width="40" height="100" rx="8" fill="#C9956F" stroke="#8B6F47" stroke-width="2"/>
+                    <rect x="130" y="50" width="40" height="100" rx="8" fill="#C9956F" stroke="#8B6F47" stroke-width="2"/>
+
+                    <!-- Центральна частина -->
+                    <path d="M 70 45 Q 50 80 45 150 L 45 220 Q 45 230 55 235 L 145 235 Q 155 230 155 220 L 155 150 Q 150 80 130 45 Z"
+                          fill="#D4A574" stroke="#8B6F47" stroke-width="2"/>
+
+                    <!-- Текстура в'язання (горизонтальні смужки) -->
+                    <line x1="50" y1="70" x2="150" y2="70" stroke="#A0826D" stroke-width="1" opacity="0.4"/>
+                    <line x1="48" y1="90" x2="152" y2="90" stroke="#A0826D" stroke-width="1" opacity="0.4"/>
+                    <line x1="46" y1="110" x2="154" y2="110" stroke="#A0826D" stroke-width="1" opacity="0.4"/>
+                    <line x1="45" y1="130" x2="155" y2="130" stroke="#A0826D" stroke-width="1" opacity="0.4"/>
+                    <line x1="45" y1="150" x2="155" y2="150" stroke="#A0826D" stroke-width="1" opacity="0.4"/>
+                    <line x1="45" y1="170" x2="155" y2="170" stroke="#A0826D" stroke-width="1" opacity="0.4"/>
+                    <line x1="45" y1="190" x2="155" y2="190" stroke="#A0826D" stroke-width="1" opacity="0.4"/>
+                    <line x1="47" y1="210" x2="153" y2="210" stroke="#A0826D" stroke-width="1" opacity="0.4"/>
+
+                    <!-- Манжети рукавів -->
+                    <rect x="30" y="145" width="40" height="8" fill="#A0826D" stroke="#8B6F47" stroke-width="1"/>
+                    <rect x="130" y="145" width="40" height="8" fill="#A0826D" stroke="#8B6F47" stroke-width="1"/>
+
+                    <!-- Манжета внизу -->
+                    <rect x="50" y="227" width="100" height="8" fill="#A0826D" stroke="#8B6F47" stroke-width="1"/>
+                </svg>
+            </div>
+
+            <div class="form-section">
+                <form id="calculatorForm">
+                    <div class="form-group">
+                        <label for="width">Ширина світра (см)</label>
+                        <input type="number" id="width" placeholder="наприклад, 40, 60, 25" min="10" max="150" required>
+                        <small>Обхват грудей, поділений на 2</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="length">Довжина світра (см)</label>
+                        <input type="number" id="length" placeholder="наприклад, 40, 60, 25" min="10" max="100" required>
+                        <small>Від гірловини до краю</small>
+                    </div>
+
+                    <div class="form-divider">Щільність в'язання</div>
+
+                    <div class="form-group">
+                        <label for="stitches">Кількість петель на 10 см</label>
+                        <input type="number" id="stitches" placeholder="наприклад, 40, 60, 25" min="5" max="50" step="0.5" required>
+                        <small>Виміряй горизонтальну щільність</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rows">Кількість рядків на 10 см</label>
+                        <input type="number" id="rows" placeholder="наприклад, 40, 60, 25" min="5" max="50" step="0.5" required>
+                        <small>Виміряй вертикальну щільність</small>
+                    </div>
+
+                    <button type="submit" class="btn-calculate">Розрахувати</button>
+                    <small>Щільність вказується на 10 см</small>
+                    <p id="formError" class="form-error hidden" aria-live="polite"></p>
+                </form>
+            </div>
+        </div>
+
+        <div id="resultsContainer" class="results-container hidden">
+            <div class="results-card">
+                <h2>Результати розрахунків</h2>
+
+                <div class="result-item">
+                    <div class="result-icon">🔢</div>
+                    <div class="result-content">
+                        <div class="result-label">Петель до набору</div>
+                        <div class="result-value" id="stitchesResult">-</div>
+                        <small>Стільки петель потрібно набрати на спиці</small>
+                    </div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-icon">📏</div>
+                    <div class="result-content">
+                        <div class="result-label">Рядків для в'язання</div>
+                        <div class="result-value" id="rowsResult">-</div>
+                        <small>Стільки рядків потрібно пров'язати</small>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Порада:</strong> Завжди роби контрольний зразок перед початком! Виміряй щільність кілька разів, щоб переконатися у точності.
+                </div>
+
+                <button type="button" class="btn-reset" onclick="resetForm()">Нові розрахунки</button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>🧶 Щасливого в'язання! 🧶</p>
+            <small>2026 | Калькулятор для в'язальниць</small>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
